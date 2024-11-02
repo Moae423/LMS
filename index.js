@@ -16,7 +16,10 @@ app.use(expressEjsLayouts);
 app.set('layout', './layouts/full-width');
 app.set("view engine", "ejs");
 
-
+// variable 
+const mahasiswa = [{
+  
+}]
 // rendering viwe
 app.get('/', (req, res) => {
   res.render('index', {
