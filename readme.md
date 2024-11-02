@@ -1,0 +1,2 @@
+Building a web-based expert system for tuberculosis disease diagnosis using Laravel and the Bayes Theorem method. This system is designed to assist medical personnel and the general public in diagnosing the possibility of developing tuberculosis by entering the symptoms experienced. The Bayes Theorem method is used to calculate the probability of each diagnosis based on existing symptoms, thus providing accurate and fast results.
+Expert System For Diagnosing Tuberculosis
