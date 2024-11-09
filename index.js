@@ -44,13 +44,60 @@ app.get('/add', (req,res) => {
     layout: "./layouts/add"
   })
 })
-app.get("/update", (req,res) => {
-  res.render("update", {
-    title: "LMS Forsk College",
-    layout: "./layouts/edit",
-  })
+// app.get("/edit/:id", (req, res) => {
+//   const id = parseInt(req.params.id, 10);
+//   const post = posts.find((p) => p.id === id);
+//   if (post) {
+//     res.render("edit", { post });
+//   } else {
+//     res.redirect("/");
+//   }
+// });
+app.get('/update/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const mhs = mahasiswa.findIndex((m) => m.id === id);
+  if (mhs) {
+    res.render("update", {
+      title: "LMS Forsk College",
+      layout: "./layouts/edit",
+      mhs
+    })
+  } else { 
+    res.redirect("/")
+  }
 })
 
+// app.post("/edit/:id", (req, res) => {
+//   const id = parseInt(req.params.id, 10); 
+//   const { content } = req.body; // field yang aman mau diedit
+//   const postIndex = posts.findIndex((p) => p.id === id);
+
+//   if (postIndex !== -1) {
+//     // Only update content, keep other fields unchanged
+//     posts[postIndex].content = content;
+//     res.redirect("/");
+//   } else {
+//     res.redirect("/");
+//   }
+// });
+app.post('/update/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const data = { nama: req.body.nama, nim: req.body.nim, jurusan: req.body.jurusan };
+  const mhsIndex = mahasiswa.findIndex((m) => m.id === id);
+  if (mhsIndex !== -1) {
+    mahasiswa[mhsIndex] = { ...mahasiswa[mhsIndex], ...data }; // Menggabungkan data baru dengan data lama
+    res.redirect("/");
+  } else { 
+    res.redirect("/");
+  }
+});
+
+// delete
+app.post("/delete/:id", (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  mahasiswa = mahasiswa.filter((student) => student.id !== id); // Remove post with matching ID
+  res.redirect("/");
+});
 app.listen(port, (req, res) => {
   console.log(`Listening Port ${port}`);
 });
