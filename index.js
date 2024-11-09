@@ -6,6 +6,7 @@ import expressEjsLayouts from "express-ejs-layouts";
 
 const app = express();
 const port = 3000;
+let mahasiswa = [];
 
 // set static 
 app.use(express.static("public"));
@@ -16,14 +17,25 @@ app.use(expressEjsLayouts);
 app.set('layout', './layouts/full-width');
 app.set("view engine", "ejs");
 
-// variable 
-const mahasiswa = [{
-  
-}]
+// app.post("/publish", (req, res) => {
+//   const { title, content, nama } = req.body;
+//   const id = posts.length;
+//   posts.push({ id, title, content, nama });
+//   res.redirect("/");
+// });
+
+app.post("/add", (req, res) => {
+  const { nama, nim, email, jurusan } = req.body;
+  const id = mahasiswa.length;
+  mahasiswa.push({ id, nama, nim, email, jurusan });
+  res.redirect("/");
+  console.log(mahasiswa);
+  })
 // rendering viwe
 app.get('/', (req, res) => {
   res.render('index', {
-    title: "LMS Forsk College"
+    title: "LMS Forsk College",
+    mahasiswa,
   }); // pastikan file index.ejs memiliki konten
 });
 app.get('/add', (req,res) => {
